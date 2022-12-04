@@ -54,8 +54,18 @@ export default {
   methods: {
     // 登录
     async onSubmit (values) {
-      const result = await this.$api.user.login(values)
-      this.$store.commit('setUser', result.data)
+      this.$toast.loading({
+        message: '登录中',
+        forbidClick: true,
+        duration: 0
+      })
+      const { data } = await this.$api.user.login(values)
+      this.$toast.success('登录成功')
+      this.$store.commit('setUser', data)
+      // 获取用户信息
+      const userResult = await this.$api.user.getUser()
+      this.$store.commit('setUserInfo', userResult.data)
+      this.$router.back()
     },
     // 发送验证码
     async onSendSms () {

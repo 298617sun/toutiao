@@ -16,3 +16,11 @@ export const sendSex = data => {
     url: `/v1_0/sms/codes/${data}`
   })
 }
+
+// 获取用户个人资料
+export const getUser = () => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user'
+  })
+}
