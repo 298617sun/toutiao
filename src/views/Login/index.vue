@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <van-nav-bar title="登录"/>
+    <van-nav-bar title="登录" left-arrow @click-left="$router.back()"/>
     <van-form @submit="onSubmit" ref="loginForm">
       <van-field
         v-model="user.mobile"
@@ -65,6 +65,7 @@ export default {
       // 获取用户信息
       const userResult = await this.$api.user.getUser()
       this.$store.commit('setUserInfo', userResult.data)
+
       this.$router.back()
     },
     // 发送验证码
@@ -87,6 +88,9 @@ export default {
 
 <style lang="less" scoped>
 .login-container{
+  .van-nav-bar /deep/ .van-icon {
+    color: #fff;
+  }
   .iconfont{
     font-size: 20px;
     padding: 0 6px;

@@ -24,19 +24,23 @@
         <template #icon>
           <span class="iconfont icon-wode"></span>
         </template>
-        未登录
+        {{user ? '我的' : '未登录'}}
       </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'NavigationIndex',
   data () {
     return {
       active: 0
     }
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>
