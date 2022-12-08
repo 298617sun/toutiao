@@ -13,7 +13,7 @@
       >
         <div class="list-item" v-for="(item, index) in list" :key="index">
           <div class="top">
-            <span class="title">{{item.title}}</span>
+            <div class="title van-multi-ellipsis--l2">{{item.title}}</div>
             <van-image
               v-if="item.cover.type === 1"
               fit="cover"
@@ -107,6 +107,7 @@ export default {
       .title{
         color: #3A3A3A;
         margin-right: 12px;
+        height: 100%;
       }
     }
     .center{
