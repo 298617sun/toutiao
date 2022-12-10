@@ -12,23 +12,30 @@
         <articleList :channelId="item.id"></articleList>
       </van-tab>
       <div slot="nav-right" class="right"></div>
-      <div class="hamburger-btn">
+      <div class="hamburger-btn" @click="$refs.channelShow.isShow()">
         <span class="iconfont icon-gengduo"></span>
       </div>
     </van-tabs>
+    <!-- 编辑频道 -->
+    <channelEdit ref="channelShow" :channels="channels" :active.sync="active"></channelEdit>
   </div>
 </template>
 
 <script>
 import articleList from './components/articleList.vue'
+import channelEdit from './components/channelEdit.vue'
+import { mapState } from 'vuex'
 export default {
   name: 'HomeIndex',
-  components: { articleList },
+  components: { articleList, channelEdit },
   data () {
     return {
       active: 0,
       channels: [] // 频道列表
     }
+  },
+  computed: {
+    ...mapState(['user'])
   },
   mounted () {
     this.getChannel()
@@ -36,8 +43,12 @@ export default {
   methods: {
     // 获取频道列表
     async getChannel () {
-      const { data } = await this.$api.channel.getUserChannel()
-      this.channels = data.channels
+      if (this.user || !localStorage.getItem('MYCHANNELS')) {
+        const { data } = await this.$api.channel.getUserChannel()
+        this.channels = data.channels
+      } else {
+        this.channels = JSON.parse(localStorage.getItem('MYCHANNELS'))
+      }
     }
   }
 }

@@ -11,24 +11,8 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <div class="list-item" v-for="(item, index) in list" :key="index">
-          <div class="top">
-            <div class="title van-multi-ellipsis--l2">{{item.title}}</div>
-            <van-image
-              v-if="item.cover.type === 1"
-              fit="cover"
-              :src="item.cover.images[0]"
-            />
-          </div>
-          <div class="center" v-if="item.cover.type === 3">
-            <van-image
-              v-for="(imageItem,imageIndex) in item.cover.images"
-              :key="imageIndex"
-              fit="cover"
-              :src="imageItem"
-            />
-          </div>
-          <div class="bottom">{{item.aut_name}} {{item.comm_count}}评论 {{item.pubdate}}小时前</div>
+        <div v-for="(item, index) in list" :key="index">
+          <ArticleItem :item="item"></ArticleItem>
         </div>
         <!-- <van-cell v-for="(item, index) in list" :key="index" :title="item.title">
 
@@ -39,8 +23,10 @@
 </template>
 
 <script>
+import ArticleItem from '@/components/ArticleItem'
 export default {
   name: 'ArticleList',
+  components: { ArticleItem },
   props: {
     channelId: {
       type: Number,
@@ -92,33 +78,9 @@ export default {
   right: 0;
   left: 0;
   /deep/ .van-image{
-    width: 116px;
+    width: 115px;
     height: 73px;
     flex-shrink: 0;
-  }
-  .list-item{
-    background: #fff;
-    padding: 13px;
-    margin-bottom: 1px;
-    .top{
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      .title{
-        color: #3A3A3A;
-        margin-right: 12px;
-        height: 100%;
-      }
-    }
-    .center{
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .bottom{
-      font-size: 12px;
-      color: #999999;
-    }
   }
 }
 </style>

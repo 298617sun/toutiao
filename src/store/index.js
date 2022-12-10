@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: JSON.parse(localStorage.getItem('TOKEN')),
-    userInfo: JSON.parse(localStorage.getItem('USERINFO'))
+    userInfo: JSON.parse(localStorage.getItem('USERINFO')),
+    allChannel: []
   },
   mutations: {
     setUser (state, data) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     setUserInfo (state, data) {
       state.userInfo = data
       localStorage.setItem('USERINFO', JSON.stringify(data))
+    },
+    setAllChannel (state, data) {
+      state.allChannel = data
     }
   }
 })
